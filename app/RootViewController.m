@@ -38,7 +38,7 @@
   _button.frame =
       CGRectMake(UIScreen.mainScreen.bounds.size.width / 2 - 30,
                  UIScreen.mainScreen.bounds.size.height / 2 - 25, 60, 50);
-  [_button setTitle:access("/bin/bash", F_OK) == 0 ? @"Enable" : @"Disable"
+  [_button setTitle:self.enabled ? @"Disable" : @"Enable"
            forState:UIControlStateNormal];
   [_button addTarget:self
                 action:@selector(buttonPressed:)
@@ -54,7 +54,7 @@
 }
 
 - (void)buttonPressed:(UIButton *)sender {
-  BOOL disabled = access("/bin/bash", F_OK) == 0;
+  BOOL disabled = !self.enabled;
   NSArray *opts;
   if (disabled) {
     opts = @[ @"-s", @"-h" ];
@@ -69,9 +69,8 @@
   [task waitUntilExit];
   task = [NSTask launchedTaskWithLaunchPath:launchPath arguments:@[ opts[1] ]];
   [task waitUntilExit];
-  NSString *title = access("/bin/bash", F_OK) == 0 ? @"Enable" : @"Disable";
-  NSString *successTitle =
-      (access("/bin/bash", F_OK) == 0) == disabled ? @"Failed" : @"Success";
+  NSString *title = self.enabled ? @"Disable" : @"Enable";
+  NSString *successTitle = self.enabled != disabled ? @"Failed" : @"Success";
   [_button setTitle:successTitle forState:UIControlStateNormal];
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),
                  ^{
@@ -80,6 +79,10 @@
                      [_button setTitle:title forState:UIControlStateNormal];
                    });
                  });
+}
+
+- (BOOL)isEnabled {
+  return access("/bin/sh", F_OK) != 0;
 }
 
 @end
