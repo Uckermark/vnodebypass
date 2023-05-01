@@ -2,7 +2,7 @@ Author: XsF1re
 Maintainer: ichitaso
 Package: kr.xsf1re.vnodebypass
 Name: vnodebypass
-Depends: firmware (>= 12.0)
+Depends: firmware (>= 15.0)
 Section: System
 Version: 0.2.9
 Architecture: iphoneos-arm

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdint.h>
 
-inline int SVC_Access(const char* detectionPath) {
+int SVC_Access(const char* detectionPath) {
 
 #if defined __arm64__ || defined __arm64e__
 	int64_t flag = 0;

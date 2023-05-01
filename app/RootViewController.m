@@ -44,11 +44,9 @@
                 action:@selector(buttonPressed:)
       forControlEvents:UIControlEventTouchUpInside];
 
-  if (@available(iOS 13, *)) {
-    self.view.backgroundColor = UIColor.systemBackgroundColor;
-    _titleLabel.textColor = UIColor.labelColor;
-    _subtitleLabel.textColor = UIColor.labelColor;
-  }
+  self.view.backgroundColor = UIColor.systemBackgroundColor;
+  _titleLabel.textColor = UIColor.labelColor;
+  _subtitleLabel.textColor = UIColor.labelColor;
 
   [self.view addSubview:_button];
 }
