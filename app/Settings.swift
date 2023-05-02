@@ -18,6 +18,8 @@ struct SettingsButton: View {
 struct SettingsView: View {
     @State var files: Int = DeviceInfo.getShownPaths()
     @State var isBypassed: Bool = DeviceInfo.isBypassed()
+    @State var dlydCheck: Bool = DeviceInfo.checkDYLD()
+    @State var susFiles: Bool = DeviceInfo.checkExistenceOfSuspiciousFiles()
 
 	var body: some View {
 		 NavigationView {
@@ -25,10 +27,12 @@ struct SettingsView: View {
                 Section() {
                     Text("\(files) files detected")
                     Text("\(isBypassed ? "System is bypassed" : "System is not bypassed")")
+                    Text("\(dlydCheck ? "Dyld check passed" : "Dyld check failed")")
+                    Text("\(susFiles ? "No sus files found" : "Found sus files")")
                     Button("Respring", action: Controller().respring)
                 }
                 Section(header: Text("CREDITS")) {
-                    let credits = ["XsF1re", "ichitaso", "Uckermark", "plus007", "LeminLimez", "Amy While"]
+                    let credits = ["XsF1re", "ichitaso", "plus007", "Uckermark"]
                     ForEach(credits, id: \.self) { name in
                         Text(name)
                     }
@@ -40,6 +44,8 @@ struct SettingsView: View {
          .onAppear {
             isBypassed = DeviceInfo.isBypassed()
             files = DeviceInfo.getShownPaths()
+            dlydCheck = DeviceInfo.checkDYLD()
+            susFiles = DeviceInfo.checkExistenceOfSuspiciousFiles()
         }
     }
 }
