@@ -2,11 +2,11 @@ import Foundation
 import UIKit
 
 class Controller: ObservableObject {
-    @Published var isBypassed: Bool
     @Published var showRespring: Bool
+    @Published var isBypassed: Bool
 
     init() {
-        isBypassed = (access("/bin/sh", F_OK) != 0)
+        isBypassed = DeviceInfo.isBypassed()
         showRespring = false
     }
 

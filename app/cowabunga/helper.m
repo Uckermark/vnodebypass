@@ -46,11 +46,6 @@ mach_port_t get_send_once(mach_port_t recv) {
   return so;
 }
 
-// copy-pasted from an exploit I wrote in 2019...
-// still works...
-
-// (in the exploit for this: https://googleprojectzero.blogspot.com/2019/04/splitting-atoms-in-xnu.html )
-
 void xpc_crasher(char* service_name) {
   mach_port_t client_port = MACH_PORT_NULL;
   mach_port_t reply_port = MACH_PORT_NULL;
