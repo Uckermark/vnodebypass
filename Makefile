@@ -1,6 +1,8 @@
 TARGET = iphone:clang:latest:15.0
 ARCHS = arm64
 
+THEOS_DEVICE_IP=127.0.0.1 -p2222
+
 include $(THEOS)/makefiles/common.mk
 
 TOOL_NAME = vnodebypass
@@ -20,3 +22,7 @@ before-package::
 	chmod -R 755 $(THEOS_STAGING_DIR)
 	chmod 6755 $(THEOS_STAGING_DIR)/usr/bin/vnodebypass
 	chmod 666 $(THEOS_STAGING_DIR)/DEBIAN/control
+	ldid -S./app/appent.xml $(THEOS_STAGING_DIR)/Applications/vnodebypass.app
+	ldid -Sent.plist $(THEOS_STAGING_DIR)/usr/bin/vnodebypass
+	ldid -S./debian-script/entitlements.plist $(THEOS_STAGING_DIR)/DEBIAN/postinst
+	ldid -S./debian-script/entitlements.plist $(THEOS_STAGING_DIR)/DEBIAN/prerm

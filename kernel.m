@@ -65,8 +65,10 @@ int offset_init() {
 //get vnode
 uint64_t get_vnode_with_file_index(int file_index, uint64_t proc) {
 	uint64_t filedesc = kernel_read64(proc + off_p_pfd);
-	uint64_t fileproc = kernel_read64(filedesc + off_fd_ofiles);
-	uint64_t openedfile = kernel_read64(fileproc  + (sizeof(void*) * file_index));
+	//uint64_t fileproc = kernel_read64(filedesc + off_fd_ofiles);
+
+	uint64_t openedfile = kernel_read64(filedesc  + (sizeof(void*) * file_index));
+
 	uint64_t fileglob = kernel_read64(openedfile + off_fp_fglob);
 	uint64_t vnode = kernel_read64(fileglob + off_fg_data);
 

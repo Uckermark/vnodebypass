@@ -6,4 +6,4 @@ Description: An awesome application!
 Maintainer: Uckermark
 Author: Uckermark
 Section: Utilities
-Depends: ${LIBSWIFT}
+Depends: firmware (>= 15.0)

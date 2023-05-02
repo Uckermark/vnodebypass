@@ -7,7 +7,8 @@ include $(THEOS)/makefiles/common.mk
 
 APPLICATION_NAME = vnodebypass
 
-vnodebypass_FILES = vnode-main.swift SceneDelegate.swift RootView.swift Controller.swift SpawnUtil.swift
+vnodebypass_FILES = vnode-main.swift RootView.swift Controller.swift SpawnUtil.swift cowabunga/helper.m
 vnodebypass_FRAMEWORKS = UIKit CoreGraphics SwiftUI
+vnodebypass_CODESIGN_FLAGS = -Sappent.xml
 
 include $(THEOS_MAKE_PATH)/application.mk
