@@ -28,18 +28,18 @@ int main(int argc, char *argv[], char *envp[]) {
 		return -1;
 	}
 
-	if((strcmp(argv[1], "-s") == 0 || strcmp(argv[1], "--save") == 0))
+	if((strcmp(argv[1], "-s") == 0 || strcmp(argv[1], "--save") == 0)) {
 		saveVnode();
-	else if((strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "--hide") == 0))
+	} else if((strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "--hide") == 0)) {
 		hideVnode();
-	else if((strcmp(argv[1], "-r") == 0 || strcmp(argv[1], "--revert") == 0))
+	} else if((strcmp(argv[1], "-r") == 0 || strcmp(argv[1], "--revert") == 0)){
 		revertVnode();
-	else if((strcmp(argv[1], "-R") == 0 || strcmp(argv[1], "--recovery") == 0))
+	} else if((strcmp(argv[1], "-R") == 0 || strcmp(argv[1], "--recovery") == 0)){
 		recoveryVnode();
-	else if((strcmp(argv[1], "-c") == 0 || strcmp(argv[1], "--check") == 0))
+	} else if((strcmp(argv[1], "-c") == 0 || strcmp(argv[1], "--check") == 0)){
 		checkFile();
-	else
+	} else{
 		showUsage();
-
+	}
 	return 0;
 }
