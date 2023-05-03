@@ -13,10 +13,11 @@ class Controller: ObservableObject {
     func run() {
         let name = ProcessInfo.processInfo.processName
         let path = "/usr/bin/\(name)"
-        let opts: [String] = self.isBypassed ? ["-r", "-R"] : ["-s", "-h"]
-        
-        let cmd1 = spawn(command: path, args: [opts[0]], root: true)
-        let cmd2 = spawn(command: path, args: [opts[1]], root:true)
+        var opts1: [String] = self.isBypassed ? ["-r"] : ["-s"]
+        let opts2: [String] = self.isBypassed ? ["-R"] : ["-h"]
+        if (Preferences.shared.extensive && opts1 == ["-s"]) { opts1.append("-e") }
+        let cmd1 = spawn(command: path, args: opts1, root: true)
+        let cmd2 = spawn(command: path, args: opts2, root:true)
         if(cmd1.0 == 0 && cmd2.0 == 0) {
             self.isBypassed.toggle()
             self.showRespring.toggle()

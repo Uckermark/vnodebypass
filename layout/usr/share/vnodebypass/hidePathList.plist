@@ -171,9 +171,12 @@
     <string>/Library/MobileSubstrate/DynamicLibraries/PreferenceLoader.dylib</string>
     <string>/Library/MobileSubstrate/DynamicLibraries/PreferenceLoader.plist</string>
     <string>/prep_bootstrap.sh</string>
-    <string></string>
-    <string></string>
-    <string></string>
+    <string>/private/var/lib/apt</string>
+    <string>/var/lib/dpkg/info/mobilesubstrate.md5sums</string>
+    <string>/var/lib/cydia</string>
+    <string>/private/var/lib/cydia</string>
+    <string>/var/lib/dpkg</string>
+    <string>/var/lib</string>
 	<!--   machine generated below -->
 	
 	<string>/usr/bin/[</string>

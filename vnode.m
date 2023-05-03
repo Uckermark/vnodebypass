@@ -8,6 +8,7 @@
 const char *vnodeMemPath;
 NSMutableArray *hidePathList = nil;
 NSArray *recHidePathList = nil;
+BOOL extensiveMode = NO;
 
 __attribute__((constructor)) void initVnodeMemPath() {
   vnodeMemPath =
@@ -28,7 +29,7 @@ BOOL addAllFilePathsInDirectory(NSString * directoryPath) {
       if (isDir) {
         [hidePathList addObject:filePath];
         addAllFilePathsInDirectory(filePath);
-      } else {
+      } else if(![hidePathList containsObject:filePath]){
         [hidePathList addObject:filePath];
         NSLog(@"[vnbp] added %@", filePath);
       }
@@ -45,8 +46,12 @@ void initRecPath() {
   }
   return;
 exit:
-  printf("hidePathList.plist is broken, please reinstall vnodebypass!\n");
+  printf("recHidePathList.plist is broken, please reinstall vnodebypass!\n");
   exit(1);
+}
+
+void setExtensive(BOOL state) {
+  extensiveMode = state;
 }
 
 void initPath() {
@@ -55,6 +60,7 @@ void initPath() {
   for (id path in hidePathList) {
     if (![path isKindOfClass:[NSString class]]) goto exit;
   }
+  if(extensiveMode) initRecPath();
   return;
 exit:
   printf("hidePathList.plist is broken, please reinstall vnodebypass!\n");

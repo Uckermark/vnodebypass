@@ -11,7 +11,7 @@ public class DeviceInfo: ObservableObject {
     static func getShownPaths() -> Int {
         let name = ProcessInfo.processInfo.processName
         let path = "/usr/bin/\(name)"
-        let opts: [String] = ["-c"]
+        let opts: [String] = Preferences.shared.extensive ? ["-c", "-e"] : ["-c"]
         let cmd = spawn(command: path, args: opts, root: true)
         if(cmd.0 != 0) {
             return -1

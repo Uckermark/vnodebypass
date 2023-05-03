@@ -4,7 +4,7 @@
 #include "vnode.h"
 
 void showUsage() {
-	printf("Usage: vnodebypass [OPTION]...\n");
+	printf("Usage: vnodebypass [OPTION] [-e]...\n");
 	printf("Hide jailbreak files using VNODE that provides an internal representation of a file or directory or defines an interface to a file.\n\n");
 	printf("Option:\n");
 	printf("-s,  --save             Get vnode with file index and save path to /tmp/vnodeMem.txt\n");
@@ -12,6 +12,7 @@ void showUsage() {
 	printf("-r,  --revert           Revert jailbreak files\n");
 	printf("-R,  --recovery         To prevent kernel panic, vnode_usecount and vnode_iocount will be substracted 1 and remove /tmp/vnodeMem.txt\n");
 	printf("-c,  --check            Check if jailbreak file exists using SVC #0x80 SYS_access.\n");
+	printf("-e                      Enable extensive bypass mode (up to 20x more files hidden; NOT recommended). May be used with -s and -c.\n");
 }
 
 int main(int argc, char *argv[], char *envp[]) {
@@ -23,12 +24,18 @@ int main(int argc, char *argv[], char *envp[]) {
 		return -1;
 	}
 
-	if (argc != 2) {
+	if (argc < 2) {
 		showUsage();
 		return -1;
+	} else if (argc == 3 && strcmp(argv[2], "-e") == 0) {
+		setExtensive(YES);
 	}
 
-	if((strcmp(argv[1], "-s") == 0 || strcmp(argv[1], "--save") == 0)) {
+	if((strcmp(argv[1], "-e") == 0)) {
+		printf("\"-e\" must be the second parameter!\n");
+		showUsage();
+		return -1;
+	} else if((strcmp(argv[1], "-s") == 0 || strcmp(argv[1], "--save") == 0)) {
 		saveVnode();
 	} else if((strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "--hide") == 0)) {
 		hideVnode();

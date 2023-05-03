@@ -10,5 +10,16 @@
     <string>/cores</string>
     <string>/Library/PreferenceBundles</string>
     <string>/Library/PreferenceLoader</string>
+    <string>/usr/share/dpkg</string>
+    <string>/usr/share/man</string>
+    <string>/usr/share/terminfo</string>
+    <string>/usr/share/nano</string>
+    <string>/usr/share/polkit-1</string>
+    <string>/usr/share/bash-completion</string>
+    <string>/usr/share/debianutils</string>
+    <string>/usr/share/doc</string>
+    <string>/usr/share/examples</string>
+    <string>/usr/share/zsh</string>
+    <string>/usr/share/skel</string>
 </array>
 </plist>
