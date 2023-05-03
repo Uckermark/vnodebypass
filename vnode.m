@@ -6,17 +6,51 @@
 #include "libdimentio.h"
 
 const char *vnodeMemPath;
-NSArray *hidePathList = nil;
+NSMutableArray *hidePathList = nil;
+NSArray *recHidePathList = nil;
 
 __attribute__((constructor)) void initVnodeMemPath() {
   vnodeMemPath =
       [NSString stringWithFormat:@"/tmp/%@.txt", NSProcessInfo.processInfo.processName].UTF8String;
 }
 
+BOOL addAllFilePathsInDirectory(NSString * directoryPath) {
+  NSFileManager *fileManager = [NSFileManager defaultManager];
+  NSArray *contents = [fileManager contentsOfDirectoryAtPath:directoryPath error:nil];
+  if (!hidePathList) {
+    NSLog(@"[vnbp] Failed to load hidePathList.plist");
+    return NO;
+  }
+  for (NSString *fileName in contents) {
+    NSString *filePath = [directoryPath stringByAppendingPathComponent:fileName];
+    BOOL isDir;
+    if (filePath && [fileManager fileExistsAtPath:filePath isDirectory:&isDir]) {
+      if (isDir) {
+        [hidePathList addObject:filePath];
+        addAllFilePathsInDirectory(filePath);
+      } else {
+        [hidePathList addObject:filePath];
+        NSLog(@"[vnbp] added %@", filePath);
+      }
+    }
+  }
+  return YES;
+}
+
+void initRecPath() {
+  recHidePathList = [NSArray arrayWithContentsOfFile:[NSString stringWithFormat:@"/usr/share/%@/recHidePathList.plist", NSProcessInfo.processInfo.processName]];
+  for (id path in recHidePathList) {
+    if (![path isKindOfClass:[NSString class]]) goto exit;
+    if(!addAllFilePathsInDirectory(path)) goto exit;
+  }
+  return;
+exit:
+  printf("hidePathList.plist is broken, please reinstall vnodebypass!\n");
+  exit(1);
+}
+
 void initPath() {
-  hidePathList = [NSArray
-      arrayWithContentsOfFile:[NSString stringWithFormat:@"/usr/share/%@/hidePathList.plist",
-                                                         NSProcessInfo.processInfo.processName]];
+  hidePathList = [NSMutableArray arrayWithContentsOfFile:[NSString stringWithFormat:@"/usr/share/%@/hidePathList.plist", NSProcessInfo.processInfo.processName]];
   if (hidePathList == nil) goto exit;
   for (id path in hidePathList) {
     if (![path isKindOfClass:[NSString class]]) goto exit;

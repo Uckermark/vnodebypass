@@ -47,7 +47,6 @@
 	<string>/Library/Themes</string>
 	<string>/private/var/binpack</string>
 	<string>/private/var/checkra1n.dmg</string>
-	<string>/private/var/lib/apt</string>
 	<string>/tmp/vnodeMem.txt</string>
 	<string>/usr/bin/diff</string>
 	<string>/usr/bin/hostinfo</string>
@@ -88,16 +87,13 @@
 	<string>/jb/offsets.plist</string>
 	<string>/usr/share/jailbreak/injectme.plist</string>
 	<string>/etc/apt/undecimus/undecimus.list</string>
-	<string>/var/lib/dpkg/info/mobilesubstrate.md5sums</string>
 	<string>/jb/jailbreakd.plist</string>
 	<string>/jb/amfid_payload.dylib</string>
 	<string>/jb/libjailbreak.dylib</string>
 	<string>/usr/libexec/cydia/firmware.sh</string>
-	<string>/var/lib/cydia</string>
 	<string>/private/var/Users/</string>
 	<string>/var/log/apt</string>
 	<string>/private/var/stash</string>
-	<string>/private/var/lib/cydia</string>
 	<string>/private/var/cache/apt/</string>
 	<string>/private/var/log/syslog</string>
 	<string>/private/var/tmp/cydia.log</string>
@@ -142,19 +138,19 @@
 	<string>/etc/ssh/sshd_config</string>
 	<string>/usr/share/man</string>
 	<string>/usr/share/zsh</string>
-	<string>/var/lib/dpkg</string>
 	<string>/usr/lib/libellekit.dylib</string>
 	<string>/usr/lib/substitute-loader.dylib</string>
 	<string>/usr/lib/substitute-launcher.dylib</string>
 	<string>/Library/TweakInject</string>
 	<string>/Library/MobileSubstrate</string>
-	<string>/var/lib</string>
 	<string>/var/cache</string>
 	<string>/var/cache/apt</string>
 	<string>/usr/libexec/cydia</string>
 	<string>/var/log/dpkg</string>
 	<string>/User</string>
 	<string>/var/mobile/Library/Sileo</string>
+    <string>/var/mobile/Library/Filza</string>
+    <string>/var/mobile/Library/Cr4shed</string>
 	<string>/var/mobile/Library/Preferences/com.creaturecoding.tweaksettings.plist</string>
 	<string>/var/mobile/Library/Preferences/com.ex.substitute.plist</string>
 	<string>/var/mobile/Library/Preferences/com.muirey03.cr4shedgui.plist</string>
@@ -170,10 +166,14 @@
 	<string>/var/mobile/Library/Preferences/org.coolstar.SileoNightly.plist</string>
 	<string>/var/mobile/Library/Preferences/ws.hbang.Terminal.plist</string>
 	<string>/var/mobile/Library/Preferences/xyz.willy.Zebra.plist</string>
-	<string>/var/mobile/Library/Preferences/</string>
-	<string>/var/mobile/Library/Preferences/</string>
 	<string>/var/lib/dpkg/status</string>
 	<string>/usr/lib/ellekit</string>
+    <string>/Library/MobileSubstrate/DynamicLibraries/PreferenceLoader.dylib</string>
+    <string>/Library/MobileSubstrate/DynamicLibraries/PreferenceLoader.plist</string>
+    <string>/prep_bootstrap.sh</string>
+    <string></string>
+    <string></string>
+    <string></string>
 	<!--   machine generated below -->
 	
 	<string>/usr/bin/[</string>

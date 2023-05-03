@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+    <string>/Library/MobileSubstrate</string>
+    <string>/private/var/lib</string>
+    <string>/var/lib</string>
+    <string>/var/cache</string>
+    <string>/private/var/cache</string>
+    <string>/cores</string>
+    <string>/Library/PreferenceBundles</string>
+    <string>/Library/PreferenceLoader</string>
+</array>
+</plist>

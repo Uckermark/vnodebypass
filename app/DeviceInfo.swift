@@ -155,6 +155,7 @@ public class DeviceInfo: ObservableObject {
         
         for path in paths {
             if FileManager.default.fileExists(atPath: path) {
+                NSLog("[vnbp] Suspicious file detected: \(path)")
                 sus = false
             }
         }
