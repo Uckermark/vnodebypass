@@ -134,7 +134,6 @@
 	<string>/etc/apt/sources.list.d/sileo.sources</string>
 	<string>/usr/libexec/ssh-keysign</string>
 	<string>/etc/ssh/sshd_config</string>
-	<string>/usr/libexec/ssh-keysign</string>
 	<string>/etc/ssh/sshd_config</string>
 	<string>/usr/share/man</string>
 	<string>/usr/share/zsh</string>
