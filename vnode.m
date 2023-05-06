@@ -59,6 +59,14 @@ void initPath() {
   if (hidePathList == nil) goto exit;
   for (id path in hidePathList) {
     if (![path isKindOfClass:[NSString class]]) goto exit;
+    NSLog(@"[vnbp] %@", (NSString *)path);
+    if([(NSString *)path isEqualToString:@"START-EXTENSIVE"] && !extensiveMode) {
+        NSUInteger startIndex = [hidePathList indexOfObject:path];
+        NSUInteger count = [hidePathList count] - startIndex;
+        NSRange range = NSMakeRange(startIndex, count);
+        [hidePathList removeObjectsInRange:range];
+        break;
+    }
   }
   if(extensiveMode) initRecPath();
   return;

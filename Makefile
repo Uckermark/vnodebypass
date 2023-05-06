@@ -7,7 +7,7 @@ include $(THEOS)/makefiles/common.mk
 
 TOOL_NAME = vnodebypass
 
-vnodebypass_FILES = main.m vnode.m libdimentio.c kernel.m
+vnodebypass_FILES = main.m vnode.m libdimentio.c kernel.m url.m shared/Constants.m
 vnodebypass_CFLAGS = -fobjc-arc -Iinclude
 vnodebypass_CODESIGN_FLAGS = -Sent.plist
 vnodebypass_INSTALL_PATH = /usr/bin

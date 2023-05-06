@@ -134,7 +134,6 @@
 	<string>/etc/apt/sources.list.d/sileo.sources</string>
 	<string>/usr/libexec/ssh-keysign</string>
 	<string>/etc/ssh/sshd_config</string>
-	<string>/etc/ssh/sshd_config</string>
 	<string>/usr/share/man</string>
 	<string>/usr/share/zsh</string>
 	<string>/usr/lib/libellekit.dylib</string>
@@ -146,7 +145,6 @@
 	<string>/var/cache/apt</string>
 	<string>/usr/libexec/cydia</string>
 	<string>/var/log/dpkg</string>
-	<string>/User</string>
 	<string>/var/mobile/Library/Sileo</string>
     <string>/var/mobile/Library/Filza</string>
     <string>/var/mobile/Library/Cr4shed</string>
@@ -176,8 +174,12 @@
     <string>/private/var/lib/cydia</string>
     <string>/var/lib/dpkg</string>
     <string>/var/lib</string>
+    <string>/var/cache</string>
+    <string>/User</string>
+
 	<!--   machine generated below -->
-	
+    <string>START-EXTENSIVE</string>
+    <string>/Library/MobileSubstrate/DynamicLibraries/0Shadow.plist</string>
 	<string>/usr/bin/[</string>
     <string>/usr/bin/apply</string>
     <string>/usr/bin/apt</string>

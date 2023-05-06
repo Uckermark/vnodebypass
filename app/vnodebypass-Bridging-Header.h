@@ -1,7 +1,6 @@
 #include <spawn.h>
 #include <stdint.h>
-
-#include "cowabunga/helper.h"
+#include "../shared/Constants.h"
 
 #define POSIX_SPAWN_PERSONA_FLAGS_OVERRIDE 1
 int posix_spawnattr_set_persona_np(const posix_spawnattr_t* __restrict, uid_t, uint32_t);

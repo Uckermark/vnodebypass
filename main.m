@@ -2,6 +2,7 @@
 #import <Foundation/Foundation.h>
 #include <sys/syscall.h>
 #include "vnode.h"
+#include "url.h"
 
 void showUsage() {
 	printf("Usage: vnodebypass [OPTION] [-e]...\n");
@@ -12,7 +13,8 @@ void showUsage() {
 	printf("-r,  --revert           Revert jailbreak files\n");
 	printf("-R,  --recovery         To prevent kernel panic, vnode_usecount and vnode_iocount will be substracted 1 and remove /tmp/vnodeMem.txt\n");
 	printf("-c,  --check            Check if jailbreak file exists using SVC #0x80 SYS_access.\n");
-	printf("-e                      Enable extensive bypass mode (up to 20x more files hidden; NOT recommended). May be used with -s and -c.\n");
+	printf("-u,  --url            	Try to hide url schemes of common jb apps\n");
+	printf("-e                      Enable extensive bypass mode (up to 100x more files hidden; can break stuff). May be used with -s and -c.\n");
 }
 
 int main(int argc, char *argv[], char *envp[]) {
@@ -43,8 +45,12 @@ int main(int argc, char *argv[], char *envp[]) {
 		revertVnode();
 	} else if((strcmp(argv[1], "-R") == 0 || strcmp(argv[1], "--recovery") == 0)){
 		recoveryVnode();
-	} else if((strcmp(argv[1], "-c") == 0 || strcmp(argv[1], "--check") == 0)){
+	}  else if((strcmp(argv[1], "-c") == 0 || strcmp(argv[1], "--check") == 0)){
 		checkFile();
+	} else if((strcmp(argv[1], "-u") == 0 || strcmp(argv[1], "--url") == 0)){
+		removeCustomURLSchemeFromApps();
+	} else if((strcmp(argv[1], "-U") == 0 || strcmp(argv[1], "--revert-url") == 0)){
+		revertCustomURLSchemeFromApps();
 	} else{
 		showUsage();
 	}
