@@ -2,12 +2,13 @@ import SwiftUI
 import Foundation
 
 struct SettingsButton: View {
+    @Environment(\.colorScheme) var colorScheme
     @State var settings: Bool = false
 
 	var body: some View {
 		 Button(action: { settings.toggle() }) { Image(systemName: "gear") }
             .padding()
-            .foregroundColor(.white)
+            .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
             .cornerRadius(10)
             .sheet(isPresented: $settings) {
                 SettingsView()
@@ -17,21 +18,27 @@ struct SettingsButton: View {
 
 struct SettingsView: View {
     @ObservedObject var prefs: Preferences = Preferences.shared
-    @State var files: Int = DeviceInfo.getShownPaths()
-    @State var isBypassed: Bool = DeviceInfo.isBypassed()
-    @State var dlydCheck: Bool = DeviceInfo.checkDYLD()
-    @State var susFiles: Bool = DeviceInfo.checkExistenceOfSuspiciousFiles()
+    @State var files: Int = -1
+    @State var isBypassed: Bool = false
+    @State var dlydCheck: Bool = false
+    @State var susFiles: Bool = false
+    @State var initDone: Bool = false
 
 	var body: some View {
 		 NavigationView {
             List {
-                Section() {
-                    Text("\(files) files detected")
-                    Text("\(isBypassed ? "System is bypassed" : "System is not bypassed")")
-                    Text("\(dlydCheck ? "Dyld check passed at application start" : "Dyld check failed at application start")")
-                    Text("\(susFiles ? "No sus files found" : "Found sus files")")
+                Section {
+                    if(initDone) {
+                        Text("\(isBypassed ? "System is bypassed" : "System is not bypassed")")
+                        Text("\(dlydCheck ? "Dyld check passed" : "Dyld check failed")")
+                        Text("\(susFiles ? "No sus files found" : "Found \(files) sus files")")
+                    } else {
+                        Text("Checking system...")
+                    }
+                }
+                Section {
                     Button("Respring", action: Controller().respring)
-                    Toggle("Enable extensive mode (EXPERIMENTAL and slow)", isOn: $prefs.extensive)
+                    Toggle("Enable extensive mode (EXPERIMENTAL)", isOn: $prefs.extensive)
                     .onChange(of: prefs.extensive) { value in
                         prefs.save()
                         self.update()
@@ -53,8 +60,18 @@ struct SettingsView: View {
     }
 
     private func update() {
-        isBypassed = DeviceInfo.isBypassed()
-        files = DeviceInfo.getShownPaths()
-        susFiles = DeviceInfo.checkExistenceOfSuspiciousFiles()
+        DispatchQueue.global(qos: .utility).async {
+            let dIsBypassed = DeviceInfo.isBypassed()
+            let dFiles = DeviceInfo.getShownPaths()
+            let dSusFiles = DeviceInfo.checkExistenceOfSuspiciousFiles()
+            let dDyldCheck = DeviceInfo.checkDYLD()
+            DispatchQueue.main.async {
+                isBypassed = dIsBypassed
+                files = dFiles
+                susFiles = dSusFiles
+                dlydCheck = dDyldCheck
+                initDone = true
+            }
+        }
     }
 }

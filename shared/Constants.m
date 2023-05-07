@@ -1,7 +1,4 @@
-// Constants.h
 #import <Foundation/Foundation.h>
-
-NSArray<NSURL *> *getAppUrls(void);
 
 NSArray<NSURL *> *getAppUrls(void) {
     NSArray<NSURL *> *hAppUrls = @[
