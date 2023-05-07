@@ -40,7 +40,6 @@ struct SettingsView: View {
                     Button("Respring", action: Controller().respring)
                     Toggle("Enable extensive mode (EXPERIMENTAL)", isOn: $prefs.extensive)
                     .onChange(of: prefs.extensive) { value in
-                        prefs.save()
                         self.update()
                     }
                 }

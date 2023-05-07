@@ -1,7 +1,11 @@
 import Foundation
 
 class Preferences: ObservableObject {
-    @Published var extensive: Bool
+    @Published var extensive: Bool {
+        didSet {
+            save()
+        }
+    }
     
     static let shared = Preferences()
     
