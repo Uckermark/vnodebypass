@@ -11,6 +11,7 @@ class Controller: ObservableObject {
     }
 
     func run() {
+        if !isBypassed { removeCustomURLSchemeFromApps() }
         let name = ProcessInfo.processInfo.processName
         let path = "/usr/bin/\(name)"
         var opts1: [String] = self.isBypassed ? ["-r"] : ["-s"]
@@ -18,6 +19,7 @@ class Controller: ObservableObject {
         if (Preferences.shared.extensive && opts1 == ["-s"]) { opts1.append("-e") }
         let cmd1 = spawn(command: path, args: opts1, root: true)
         let cmd2 = spawn(command: path, args: opts2, root:true)
+        if isBypassed { revertCustomURLSchemeFromApps() }
         if(cmd1.0 == 0 && cmd2.0 == 0) {
             self.isBypassed.toggle()
             self.showRespring.toggle()

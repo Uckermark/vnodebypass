@@ -31,8 +31,6 @@ struct SettingsView: View {
                     Text("\(dlydCheck ? "Dyld check passed at application start" : "Dyld check failed at application start")")
                     Text("\(susFiles ? "No sus files found" : "Found sus files")")
                     Button("Respring", action: Controller().respring)
-                    Button("Remove url schemes (EXPERIMENTAL)", action: Controller().removeCustomURLSchemeFromApps)
-                    Button("Revert url schemes (EXPERIMENTAL)", action: Controller().revertCustomURLSchemeFromApps)
                     Toggle("Enable extensive mode (EXPERIMENTAL and slow)", isOn: $prefs.extensive)
                     .onChange(of: prefs.extensive) { value in
                         prefs.save()
