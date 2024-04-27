@@ -1,8 +1,4 @@
-#include <stdio.h>
-#import <Foundation/Foundation.h>
-#include <sys/syscall.h>
-#include "vnode.h"
-#include "url.h"
+#include "main.h"
 
 void showUsage() {
 	printf("Usage: vnodebypass [OPTION] [-e]...\n");

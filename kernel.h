@@ -3,16 +3,18 @@
 #include <mach/mach.h>
 #include <inttypes.h>
 #include <mach-o/loader.h>
+
 #include "libdimentio.h"
 
-uint32_t off_p_pid;
-uint32_t off_p_pfd;
-uint32_t off_fd_ofiles;
-uint32_t off_fp_fglob;
-uint32_t off_fg_data;
-uint32_t off_vnode_iocount;
-uint32_t off_vnode_usecount;
-uint32_t off_vnode_vflags;
+
+extern uint32_t off_p_pid;
+extern uint32_t off_p_pfd;
+extern uint32_t off_fd_ofiles;
+extern uint32_t off_fp_fglob;
+extern uint32_t off_fg_data;
+extern uint32_t off_vnode_iocount;
+extern uint32_t off_vnode_usecount;
+extern uint32_t off_vnode_vflags;
 
 int offset_init();
 

@@ -1,5 +1,7 @@
 import Foundation
 import UIKit
+import libroot
+
 
 class Controller: ObservableObject {
     @Published var isBypassed: Bool
@@ -16,7 +18,7 @@ class Controller: ObservableObject {
         DispatchQueue.global(qos: .userInitiated).async {
             if !self.isBypassed { self.removeCustomURLSchemeFromApps() }
             let name = ProcessInfo.processInfo.processName
-            let path = "/usr/bin/\(name)"
+            let path = jbRootPath("/usr/bin/\(name)")
             var opts1: [String] = self.isBypassed ? ["-r"] : ["-s"]
             let opts2: [String] = self.isBypassed ? ["-R"] : ["-h"]
             if (Preferences.shared.extensive && opts1 == ["-s"]) { opts1.append("-e") }
@@ -41,19 +43,19 @@ class Controller: ObservableObject {
 
     private func removeCustomURLSchemeFromApps() {
         guard !isBypassed else { return }
-        let path = "/usr/bin/\(ProcessInfo.processInfo.processName)"
+        let path = jbRootPath("/usr/bin/\(ProcessInfo.processInfo.processName)")
         spawn(command: path, args: ["-u"], root: true)
         for url in getAppUrls() {
-            spawn(command: "/usr/bin/uicache", args: ["-p", url.absoluteString], root: true)
+            spawn(command: jbRootPath("/usr/bin/uicache"), args: ["-p", url.absoluteString], root: true)
         }
     }
 
     private func revertCustomURLSchemeFromApps() {
         guard !isBypassed else { return }
-        let path = "/usr/bin/\(ProcessInfo.processInfo.processName)"
+        let path = jbRootPath("/usr/bin/\(ProcessInfo.processInfo.processName)")
         spawn(command: path, args: ["-U"], root: true)
         for url in getAppUrls() {
-            spawn(command: "/usr/bin/uicache", args: ["-p", url.absoluteString], root: true)
+            spawn(command: jbRootPath("/usr/bin/uicache"), args: ["-p", url.absoluteString], root: true)
         }
     }
 }

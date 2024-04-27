@@ -21,6 +21,7 @@
 #include <sys/stat.h>
 #include <dlfcn.h>
 #include <libproc.h>
+#include <rootless.h>
 
 #define LZSS_F (18)
 #define LZSS_N (4096)
@@ -959,11 +960,11 @@ dimentio_init(kaddr_t _kslide, kread_func_t _kread_buf, kwrite_func_t _kwrite_bu
         printf("tfp0: 0x%" PRIX32 "\n", tfp0);
         kread_buf = _kread_buf != NULL ? _kread_buf : kread_buf_tfp0;
         kwrite_buf = _kwrite_buf != NULL ? _kwrite_buf : kwrite_buf_tfp0;
-    } else if((krw_0 = dlopen("/usr/lib/libkrw.0.dylib", RTLD_LAZY)) != NULL) {
+    } else if((krw_0 = dlopen(ROOT_PATH("/usr/lib/libkrw.0.dylib"), RTLD_LAZY)) != NULL) {
         printf("libkrw!\n");
         kread_buf = kread_buf_krw_0;
         kwrite_buf = kwrite_buf_krw_0;
-    } else if((kernrw_0 = dlopen("/usr/lib/libkernrw.0.dylib", RTLD_LAZY)) != NULL && (kernrw_0_req = (kernrw_0_req_kernrw_func_t)dlsym(kernrw_0, "requestKernRw")) != NULL && kernrw_0_req() == 0 && (kernrw_0_kread = (kernrw_0_kread_func_t)dlsym(kernrw_0, "kernRW_readbuf")) != NULL && (kernrw_0_kwrite = (kernrw_0_kwrite_func_t)dlsym(kernrw_0, "kernRW_writebuf")) != NULL) {
+    } else if((kernrw_0 = dlopen(ROOT_PATH("/usr/lib/libkernrw.0.dylib"), RTLD_LAZY)) != NULL && (kernrw_0_req = (kernrw_0_req_kernrw_func_t)dlsym(kernrw_0, "requestKernRw")) != NULL && kernrw_0_req() == 0 && (kernrw_0_kread = (kernrw_0_kread_func_t)dlsym(kernrw_0, "kernRW_readbuf")) != NULL && (kernrw_0_kwrite = (kernrw_0_kwrite_func_t)dlsym(kernrw_0, "kernRW_writebuf")) != NULL) {
         printf("libkernrw!\n");
         kread_buf = kread_buf_kernrw_0;
         kwrite_buf = kwrite_buf_kernrw_0;

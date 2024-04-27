@@ -21,7 +21,7 @@ struct SettingsView: View {
     @State var files: Int = -1
     @State var isBypassed: Bool = false
     @State var dlydCheck: Bool = false
-    @State var susFiles: Bool = false
+    @State var susFiles: Int = 0
     @State var initDone: Bool = false
 
 	var body: some View {
@@ -31,7 +31,7 @@ struct SettingsView: View {
                     if(initDone) {
                         Text("\(isBypassed ? "System is bypassed" : "System is not bypassed")")
                         Text("\(dlydCheck ? "Dyld check passed" : "Dyld check failed")")
-                        Text("\(susFiles ? "No sus files found" : "Found \(files) sus files")")
+                        Text("\(susFiles == 0 ? "No sus files found" : "Found \(susFiles) sus files (total: \(files))")")
                     } else {
                         Text("Checking system...")
                     }
@@ -40,15 +40,16 @@ struct SettingsView: View {
                     Button("Respring", action: Controller().respring)
                     Toggle("Enable extensive mode (EXPERIMENTAL)", isOn: $prefs.extensive)
                     .onChange(of: prefs.extensive) { value in
+                        self.initDone = false
                         self.update()
                     }
                 }
-                /*Section(header: Text("CREDITS")) {
+                Section(header: Text("CREDITS")) {
                     let credits = ["XsF1re", "ichitaso", "plus007", "Uckermark"]
                     ForEach(credits, id: \.self) { name in
                         Text(name)
                     }
-                }*/
+                }
             }
             .listStyle(InsetGroupedListStyle())
             .navigationBarTitle("Settings", displayMode: .inline)

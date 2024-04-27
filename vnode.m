@@ -1,9 +1,8 @@
 #include "vnode.h"
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
 #include "SVC_Caller.h"
-#include "kernel.h"
 #include "libdimentio.h"
+#include "kernel.h"
+#include <rootless.h>
 
 const char *vnodeMemPath;
 NSMutableArray *hidePathList = nil;
@@ -11,8 +10,7 @@ NSArray *recHidePathList = nil;
 BOOL extensiveMode = NO;
 
 __attribute__((constructor)) void initVnodeMemPath() {
-  vnodeMemPath =
-      [NSString stringWithFormat:@"/tmp/%@.txt", NSProcessInfo.processInfo.processName].UTF8String;
+  vnodeMemPath = [NSString stringWithFormat:ROOT_PATH_NS(@"/tmp/%@.txt"), NSProcessInfo.processInfo.processName].UTF8String;
 }
 
 BOOL addAllFilePathsInDirectory(NSString * directoryPath) {
@@ -39,7 +37,7 @@ BOOL addAllFilePathsInDirectory(NSString * directoryPath) {
 }
 
 void initRecPath() {
-  recHidePathList = [NSArray arrayWithContentsOfFile:[NSString stringWithFormat:@"/usr/share/%@/recHidePathList.plist", NSProcessInfo.processInfo.processName]];
+  recHidePathList = [NSArray arrayWithContentsOfFile:[NSString stringWithFormat:ROOT_PATH_NS(@"/usr/share/%@/recHidePathList.plist"), NSProcessInfo.processInfo.processName]];
   for (id path in recHidePathList) {
     if (![path isKindOfClass:[NSString class]]) goto exit;
     if(!addAllFilePathsInDirectory(path)) goto exit;
@@ -55,11 +53,12 @@ void setExtensive(BOOL state) {
 }
 
 void initPath() {
-  hidePathList = [NSMutableArray arrayWithContentsOfFile:[NSString stringWithFormat:@"/usr/share/%@/hidePathList.plist", NSProcessInfo.processInfo.processName]];
+  hidePathList = [NSMutableArray arrayWithContentsOfFile:[NSString stringWithFormat:ROOT_PATH_NS(@"/usr/share/%@/hidePathList.plist"), NSProcessInfo.processInfo.processName]];
   if (hidePathList == nil) goto exit;
   for (id path in hidePathList) {
     if (![path isKindOfClass:[NSString class]]) goto exit;
-    NSLog(@"[vnbp] %@", (NSString *)path);
+    NSString *pathStr = (NSString *)path;
+    NSLog(@"[vnbp] %@", ROOT_PATH_NS(pathStr));
     if([(NSString *)path isEqualToString:@"START-EXTENSIVE"] && !extensiveMode) {
         NSUInteger startIndex = [hidePathList indexOfObject:path];
         NSUInteger count = [hidePathList count] - startIndex;
@@ -96,7 +95,7 @@ void saveVnode() {
   uint64_t vnodeArray[hideCount];
 
   for (int i = 0; i < hideCount; i++) {
-    const char *hidePath = [[hidePathList objectAtIndex:i] UTF8String];
+    const char *hidePath = ROOT_PATH([[hidePathList objectAtIndex:i] UTF8String]);
     int file_index = open(hidePath, O_RDONLY);
 
     if (file_index == -1) continue;
@@ -188,7 +187,7 @@ void checkFile() {
   initPath();
   int hideCount = (int)[hidePathList count];
   for (int i = 0; i < hideCount; i++) {
-    const char *hidePath = [[hidePathList objectAtIndex:i] UTF8String];
+    const char *hidePath = ROOT_PATH([[hidePathList objectAtIndex:i] UTF8String]);
     int ret = 0;
     ret = SVC_Access(hidePath);
     printf("hidePath: %s, errno: %d\n", hidePath, ret);

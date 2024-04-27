@@ -1,5 +1,6 @@
 *.o
-.theos/*
+.theos/
+.vscode/
 debs/*
 *.deb
 *.dylib

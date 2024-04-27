@@ -3,6 +3,8 @@
 #ifndef Constants_h
 #define Constants_h
 
+#include <rootless.h>
+
 // Declare the constant array
 extern NSArray<NSURL *> *getAppUrls();
 

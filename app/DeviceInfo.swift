@@ -1,16 +1,17 @@
 import Foundation
 import UIKit
 import MachO
+import libroot
 
 public class DeviceInfo: ObservableObject {
     
     static func isBypassed() -> Bool {
-        return (access("/bin/sh", F_OK) != 0)
+        return (access(jbRootPath("/bin/sh"), F_OK) != 0)
     }
 
     static func getShownPaths() -> Int {
         let name = ProcessInfo.processInfo.processName
-        let path = "/usr/bin/\(name)"
+        let path = jbRootPath("/usr/bin/\(name)")
         let opts: [String] = Preferences.shared.extensive ? ["-c", "-e"] : ["-c"]
         let cmd = spawn(command: path, args: opts, root: true)
         if(cmd.0 != 0) {
@@ -38,7 +39,7 @@ public class DeviceInfo: ObservableObject {
             "PreferenceLoader",
             "RocketBootstrap",
             "WeeLoader",
-            "/.file", // HideJB (2.1.1) changes full paths of the suspicious libraries to "/.file"
+            "/.file",
             "libhooker",
             "SubstrateInserter",
             "SubstrateBootstrap",
@@ -67,8 +68,7 @@ public class DeviceInfo: ObservableObject {
         return true
     }
 
-    static func checkExistenceOfSuspiciousFiles() -> Bool {
-        var sus = true
+    static func checkExistenceOfSuspiciousFiles() -> Int {
         var paths = [
             "/var/mobile/Library/Preferences/ABPattern", // A-Bypass
             "/usr/lib/ABDYLD.dylib", // A-Bypass,
@@ -153,13 +153,14 @@ public class DeviceInfo: ObservableObject {
             ]
         }
         
+        var count: Int = 0
         for path in paths {
-            if FileManager.default.fileExists(atPath: path) {
+            if FileManager.default.fileExists(atPath: jbRootPath(path)) {
                 NSLog("[vnbp] Suspicious file detected: \(path)")
-                sus = false
+                count += 1
             }
         }
         
-        return sus
+        return count
     }
 }

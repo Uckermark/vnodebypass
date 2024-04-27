@@ -2,15 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <array>
+	<string>/.bootstrapped_electra</string>
 	<string>/Applications/Anemone.app</string>
 	<string>/Applications/Cydia.app</string>
 	<string>/Applications/SafeMode.app</string>
 	<string>/Applications/Sileo.app</string>
-	<string>/Applications/vnodebypass.app/Info.plist</string>
-	<string>/Applications/vnodebypass.app/vnodebypass</string>
 	<string>/Applications/Zebra.app</string>
 	<string>/bin/bash</string>
-	<string>/bin/zsh</string>
+    <string>/bin/zsh</string>
 	<string>/bin/bunzip2</string>
 	<string>/bin/bzip2</string>
 	<string>/bin/cat</string>
@@ -36,7 +35,7 @@
 	<string>/etc/apt</string>
 	<string>/etc/profile</string>
 	<string>/jb</string>
-	<string>/Library/MobileSubstrate/DynamicLibraries</string>
+    <string>/Library/MobileSubstrate/DynamicLibraries</string>
 	<string>/Library/dpkg/info/com.inoahdev.launchinsafemode.list</string>
 	<string>/Library/dpkg/info/com.inoahdev.launchinsafemode.md5sums</string>
 	<string>/Library/Frameworks/CydiaSubstrate.framework</string>
@@ -47,21 +46,20 @@
 	<string>/Library/Themes</string>
 	<string>/private/var/binpack</string>
 	<string>/private/var/checkra1n.dmg</string>
-	<string>/tmp/vnodeMem.txt</string>
+	<string>/private/var/lib/apt</string>
 	<string>/usr/bin/diff</string>
 	<string>/usr/bin/hostinfo</string>
 	<string>/usr/bin/killall</string>
 	<string>/usr/bin/passwd</string>
 	<string>/usr/bin/recache</string>
 	<string>/usr/bin/tar</string>
-	<string>/usr/bin/vnodebypass</string>
 	<string>/usr/bin/which</string>
 	<string>/usr/bin/xargs</string>
-	<string>/usr/bin/ssh</string>
 	<string>/usr/lib/libjailbreak.dylib</string>
 	<string>/usr/lib/libsubstitute.0.dylib</string>
 	<string>/usr/lib/libsubstitute.dylib</string>
 	<string>/usr/lib/libsubstrate.dylib</string>
+	<string>/usr/lib/substitute-loader.dylib</string>
 	<string>/usr/lib/SBInject</string>
 	<string>/usr/lib/SBInject.dylib</string>
 	<string>/usr/lib/TweakInject</string>
@@ -70,12 +68,15 @@
 	<string>/usr/libexec/sftp-server</string>
 	<string>/usr/sbin/sshd</string>
 	<string>/usr/share/terminfo</string>
-	<string>/usr/share/vnodebypass/hidePathList.plist</string>
-	<string>/var/mobile/fakevar</string>
 	<string>/var/mobile/Library/.sbinjectSafeMode</string>
-	<string>/var/mobile/Library/Preferences/jp.akusio.kernbypass-unofficial.plist</string>
+	<string>/var/mobile/fakevar</string>
+	<string>/var/MobileSoftwareUpdate/mnt1/fakevar</string>
 	<string>/var/mobile/Library/Preferences/jp.akusio.kernbypass.plist</string>
+	<string>/var/mobile/Library/Preferences/jp.akusio.kernbypass-unofficial.plist</string>
 	<string>/var/mobile/Library/Preferences/jp.akusio.kernbypass2.plist</string>
+
+    <!-- extensive below -->
+    <string>START-EXTENSIVE</string>
 	<string>/var/MobileSoftwareUpdate/mnt1/fakevar</string>
 	<string>/var/mobile/Library/Preferences/ABPattern</string>
 	<string>/usr/lib/ABDYLD.dylib</string>
@@ -175,10 +176,8 @@
     <string>/var/lib/dpkg</string>
     <string>/var/lib</string>
     <string>/var/cache</string>
-    <string>/User</string>
 
-	<!--   machine generated below -->
-    <string>START-EXTENSIVE</string>
+    <!-- machine generated below -->
     <string>/Library/MobileSubstrate/DynamicLibraries/0Shadow.plist</string>
 	<string>/usr/bin/[</string>
     <string>/usr/bin/apply</string>
